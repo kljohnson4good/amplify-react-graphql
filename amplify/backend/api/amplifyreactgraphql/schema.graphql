@@ -8,3 +8,43 @@ type Note @model @auth(rules: [ { allow: public } ] ){
   description: String
   image: String
 }
+
+enum ItemPriceType {
+  EACH
+  BY_WEIGHT
+}
+
+enum ItemStatus {
+  CLAIMED
+  AVAILABLE
+  SOLD
+}
+
+type WholesalerItems @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  wholesalersID: ID! @index(name: "byWholesalers")
+  Name: String
+  Description: String
+  Price: Float!
+  PriceType: ItemPriceType
+  MinQty: Float
+  Material: String
+  Status: ItemStatus!
+  Shape: String
+  Color: String
+  image: String
+}
+
+type Wholesalers @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  CompanyName: String!
+  InvoiceEmail: AWSEmail!
+  Address: String!
+  Country: String!
+  OffersFreeShipping: Boolean!
+  FreeShippingMOQ: Int
+  AllowsPutBacks: Boolean!
+  ServicePlanId: Int!
+  WholesalerItems: [WholesalerItems] @hasMany(indexName: "byWholesalers", fields: ["id"])
+}
+ 

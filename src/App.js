@@ -11,12 +11,17 @@ import {
   TextField,
   View,
   withAuthenticator,
+  AmplifiyProvider,
 } from '@aws-amplify/ui-react';
 import { listNotes } from "./graphql/queries";
 import {
   createNote as createNoteMutation,
   deleteNote as deleteNoteMutation,
 } from "./graphql/mutations";
+
+import { 
+  Ampligram 
+} from './ui-components';
 
 const App = ({ signOut }) => {
   const [notes, setNotes] = useState([]);
@@ -124,6 +129,9 @@ const App = ({ signOut }) => {
           </Flex>
         ))}
       </View>
+
+      <Heading level={2}>Test Some New Features</Heading>
+      <Ampligram />
           
       <Button onClick={signOut}>Sign Out</Button>
     </View>
